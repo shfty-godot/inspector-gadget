@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/inspector_gadget/src/inspector_gadget.gd" type="Script" id=1]
+[ext_resource path="res://addons/inspector-gadget/src/inspector_gadget.gd" type="Script" id=1]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -479,6 +479,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 node_path = NodePath("../../VisualizerScrollContainer/PropertyVisualizer")
+subnames = ""
+editable = true
 property_blacklist = [ "blacklisted_property" ]
 custom_gadget_paths = {
 
@@ -492,3 +494,4 @@ container_type_hints = {
 ":dictionary_value:[keys]": "",
 ":dictionary_value:[values]": ""
 }
+filter_built_in_properties = true
