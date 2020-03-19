@@ -26,8 +26,6 @@ Inspector gadget is a set of GDScript UI controls designed to read and write obj
 
 [Discord](https://discord.gg/c72WBuG)
 
-[Godot Asset Library - Inspector Gadget](https://godotengine.org/asset-library/asset/446)
-
 [Shifty's Twitter](https://twitter.com/ShiftyAxel)
 
 ## Support
