@@ -2,7 +2,7 @@
 
 # Inspector Gadget
 
-A general-purpose GDScript UI for building editors inside Godot.
+A general-purpose GDScript UI for building editor functionality inside Godot.
 
 ## Overview
 
