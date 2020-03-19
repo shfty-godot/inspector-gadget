@@ -31,6 +31,7 @@ func _set_node(new_node: Node) -> void:
 	if _node_ref.get_ref() != new_node:
 		_node_ref = weakref(new_node)
 		_node_changed()
+	update_configuration_warning()
 
 func _set_value(new_value) -> void:
 	var value_type = typeof(_value)
@@ -40,7 +41,7 @@ func _set_value(new_value) -> void:
 		_value = new_value
 		_value_changed()
 		_prev_container_size = -1
-	elif new_value is Array:
+	elif InspectorGadgetUtil.is_array_type(new_value):
 		if new_value.size() != _prev_container_size:
 			_value = new_value
 			_value_changed()

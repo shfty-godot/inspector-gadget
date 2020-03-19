@@ -164,6 +164,21 @@ func populate_value(value) -> void:
 			var type_hint = null
 			if subnames in container_type_hints:
 				type_hint = container_type_hints[subnames]
+			else:
+				if value is PoolByteArray:
+					type_hint = 0
+				elif value is PoolIntArray:
+					type_hint = 0
+				elif value is PoolRealArray:
+					type_hint = 0.0
+				elif value is PoolStringArray:
+					type_hint = ""
+				elif value is PoolVector2Array:
+					type_hint = Vector2.ZERO
+				elif value is PoolVector3Array:
+					type_hint = Vector3.ZERO
+				elif value is PoolColorArray:
+					type_hint = Color.white
 
 			new_button.connect("pressed", self, "add_array_element", [value, type_hint])
 			vbox.add_child(new_button)
@@ -253,7 +268,7 @@ func populate_value(value) -> void:
 			new_button.connect("pressed", self, "add_dictionary_element", [value, key_type_hint, value_type_hint])
 			vbox.add_child(new_button)
 
-func add_array_element(array: Array, type_hint) -> void:
+func add_array_element(array, type_hint) -> void:
 	var _node = _node_ref.get_ref()
 	if not _node:
 		return
@@ -264,16 +279,24 @@ func add_array_element(array: Array, type_hint) -> void:
 		value = type_hint.new()
 	else:
 		value = type_hint
+
 	array.append(value)
+	if not InspectorGadgetUtil.is_by_ref_type(array):
+		set_node_value(array)
+
 	change_property_end(_node, subnames)
 
-func remove_array_element(array: Array, index: int) -> void:
+func remove_array_element(array, index: int) -> void:
 	var _node = _node_ref.get_ref()
 	if not _node:
 		return
 
 	change_property_begin(_node, subnames)
+
 	array.remove(index)
+	if not InspectorGadgetUtil.is_by_ref_type(array):
+		set_node_value(array)
+
 	change_property_end(_node, subnames)
 
 func add_dictionary_element(dict: Dictionary, key_type_hint, value_type_hint) -> void:

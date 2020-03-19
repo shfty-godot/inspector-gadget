@@ -12,6 +12,13 @@ static func is_array_type(value) -> bool:
 	is_array = is_array or value is PoolVector3Array
 	return is_array
 
+static func is_by_ref_type(value) -> bool:
+	var is_by_ref = false
+	is_by_ref = is_by_ref or value is Array
+	is_by_ref = is_by_ref or value is Dictionary
+	is_by_ref = is_by_ref or value is Object
+	return is_by_ref
+
 const BASIC_TYPE_PROPERTIES := {
 	TYPE_NIL: [],
 	TYPE_INT: [],
