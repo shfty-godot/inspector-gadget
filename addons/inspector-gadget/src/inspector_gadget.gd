@@ -3,6 +3,7 @@ extends InspectorGadgetBase
 tool
 
 export(Array, String) var property_blacklist := []
+export(String) var property_prefix = ""
 export(Dictionary) var custom_gadget_paths := {}
 export(Dictionary) var custom_gadget_metadata := {}
 export(Dictionary) var container_type_hints := {}
@@ -61,7 +62,17 @@ func populate_value(value) -> void:
 		for property in property_list:
 			if property['name'] in property_blacklist:
 				continue
-
+			
+			var property_name = property['name']
+			var visual_property_name = property_name
+			# If the variable name starts with the prefix, remove it from the display name,
+			# otherwise dont show the variable.
+			if property_prefix:
+				if property_name.begins_with(property_prefix):
+					visual_property_name = property_name.trim_prefix(property_prefix)
+				else:
+					continue
+			
 			var is_editor_variable = PROPERTY_USAGE_EDITOR & property['usage'] == PROPERTY_USAGE_EDITOR
 
 			if not is_editor_variable:
@@ -73,10 +84,10 @@ func populate_value(value) -> void:
 				if not is_script_variable:
 					continue
 
-			var property_name = property['name']
+			
 
 			var label = Label.new()
-			label.text = property_name.capitalize()
+			label.text = visual_property_name.capitalize()
 			vbox.add_child(label)
 
 			var gadget: InspectorGadgetBase = get_gadget_for_type(value[property_name], subnames + ":" + property_name, property_name)
