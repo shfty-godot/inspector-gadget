@@ -65,13 +65,13 @@ func populate_value(value) -> void:
 			
 			var property_name = property['name']
 			var visual_property_name = property_name
+			# If the variable name starts with the prefix, remove it from the display name,
+			# otherwise dont show the variable.
 			if property_prefix:
 				if property_name.begins_with(property_prefix):
 					visual_property_name = property_name.trim_prefix(property_prefix)
 				else:
 					continue
-			
-			
 			
 			var is_editor_variable = PROPERTY_USAGE_EDITOR & property['usage'] == PROPERTY_USAGE_EDITOR
 
